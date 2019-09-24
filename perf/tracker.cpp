@@ -38,7 +38,7 @@ static struct Initializer {
       location.y = dis(gen);
     }
     for (auto& name : randomNames) {
-      const char shortName[1] = { static_cast<char>(dis(gen)) };
+      const char shortName[2] = { static_cast<char>(dis(gen)) };
       name = shortName;
     }
     for (auto& plan : randomPlans) {
