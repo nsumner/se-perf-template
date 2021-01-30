@@ -1,7 +1,7 @@
 
-This is a template for some simple performance exercises using C++.
+This is a template for some simple performance exercises using C++ and Java.
 
-Building with CMake
+Building C++ Tasks with CMake
 ==============================================
 1. Create a new directory for building.
 
@@ -13,20 +13,20 @@ Building with CMake
 
 3. Run CMake in Release mode with the path to the source.
 
-        cmake ../se-perf-template -DCMAKE_BUILD_TYPE=Release
+        cmake ../se-perf-template/c++ -DCMAKE_BUILD_TYPE=Release
 
 4. Run make inside the build directory:
 
         make
 
 By default, this should produce binaries for several test cases.
-Correctness test cases reside in `bin/test/`.
-Performance test cases reside in `bin/perf/`.
+Correctness test cases reside in `out/bin/test/`.
+Performance test cases reside in `out/bin/perf/`.
 
 Note, building with a tool like ninja can be done by adding `-G Ninja` to
 the cmake invocation and running ninja instead of make.
 
-Running Tests
+Running C++ Tests
 ==============================================
 
 You can run all correctness tests automatically by simply running:
@@ -37,10 +37,27 @@ Note that this will not show you exactly which tests failed and why. You can
 see this by running individual test binaries from within your build
 directory, e.g.:
 
-        bin/test/simple-executor
+        out/bin/test/simple-executor
 
 Performance tests must be manually executed, e.g.:
 
-        bin/perf/executorPerf
+        out/bin/perf/executorPerf
 
 
+Building Java Tasks with Maven
+==============================================
+
+1. Make the `java` directory of the template your working directory.
+
+        cd se-performance-template/java
+
+2. Build using maven.
+
+        mvn clean package
+
+Running the Java Tests
+==============================================
+
+1. Run the produced jar file.
+
+        java -jar target/ex02-benchmarks.jar

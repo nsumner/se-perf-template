@@ -12,6 +12,10 @@ function(add_task_tests TASK_DIR TASK_NAME LIBRARIES)
     get_filename_component(testcase ${file} NAME_WE)
 
     add_executable(${testcase} $<TARGET_OBJECTS:doctest-main> ${file})
+    set_target_properties(${testcase} PROPERTIES
+      LINKER_LANGUAGE CXX
+      CXX_STANDARD 20
+    )
     target_include_directories(${testcase} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
