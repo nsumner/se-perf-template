@@ -1,54 +1,60 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/perf)
 
 
-add_executable(executorPerf
-  executor.cpp
+add_executable(executorPerf)
+target_sources(executorPerf
+  PRIVATE
+    executor.cpp
 )
 
-set_target_properties(executorPerf
-  PROPERTIES
+target_compile_features(executorPerf PUBLIC cxx_std_20)
+set_target_properties(executorPerf PROPERTIES
   LINKER_LANGUAGE CXX
-  CXX_STANDARD 20
   PREFIX ""
 )
 target_link_libraries(executorPerf
-  executor
-  benchmark::benchmark_main
-  ${CMAKE_THREAD_LIBS_INIT}
+  PRIVATE
+    executor
+    benchmark::benchmark_main
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
 
-add_executable(frobPerf
-  frob.cpp
+add_executable(frobPerf)
+target_sources(frobPerf
+  PRIVATE
+    frob.cpp
 )
 
-set_target_properties(frobPerf
-  PROPERTIES
+target_compile_features(frobPerf PUBLIC cxx_std_20)
+set_target_properties(frobPerf  PROPERTIES
   LINKER_LANGUAGE CXX
-  CXX_STANDARD 20
   PREFIX ""
 )
 target_link_libraries(frobPerf
-  frob
-  benchmark::benchmark_main
-  ${CMAKE_THREAD_LIBS_INIT}
+  PRIVATE
+    frob
+    benchmark::benchmark_main
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
 
-add_executable(trackerPerf
-  tracker.cpp
+add_executable(trackerPerf)
+target_sources(trackerPerf
+  PRIVATE
+    tracker.cpp
 )
 
-set_target_properties(trackerPerf
-  PROPERTIES
+target_compile_features(trackerPerf PUBLIC cxx_std_20)
+set_target_properties(trackerPerf PROPERTIES
   LINKER_LANGUAGE CXX
-  CXX_STANDARD 20
   PREFIX ""
 )
 target_link_libraries(trackerPerf
-  tracker
-  benchmark::benchmark_main
-  ${CMAKE_THREAD_LIBS_INIT}
+  PRIVATE
+    tracker
+    benchmark::benchmark_main
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
 

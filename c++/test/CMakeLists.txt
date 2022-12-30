@@ -12,14 +12,18 @@ function(add_task_tests TASK_DIR TASK_NAME LIBRARIES)
     get_filename_component(testcase ${file} NAME_WE)
 
     add_executable(${testcase} $<TARGET_OBJECTS:doctest-main> ${file})
+    target_compile_features(${testcase} PUBLIC cxx_std_20)
     set_target_properties(${testcase} PROPERTIES
       LINKER_LANGUAGE CXX
-      CXX_STANDARD 20
     )
-    target_include_directories(${testcase} PRIVATE
+    target_include_directories(${testcase}
+      PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    target_link_libraries(${testcase} ${LIBRARIES})
+    target_link_libraries(${testcase}
+      PRIVATE
+        ${LIBRARIES}
+    )
 
     add_test(NAME "${testcase}"
       COMMAND ${testcase}

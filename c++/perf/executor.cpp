@@ -21,31 +21,32 @@ using executor::Executor;
           ->Arg(16384);
 
 
-constexpr size_t maxElementCount = 16384;
-
-
 static void
 executeTasks(benchmark::State& state) {
   uint32_t result;
-  std::vector<std::unique_ptr<Task>> taskPool(300);
-  for (auto i = 0; i < 100; ++i) {
-    taskPool[i] = std::make_unique<Task1>(result);
-  }
-  for (auto i = 100; i < 200; ++i) {
-    taskPool[i] = std::make_unique<Task2>(result);
-  }
-  for (auto i = 200; i < 300; ++i) {
-    taskPool[i] = std::make_unique<Task3>(result);
-  }
 
+  auto createTask = [&result] (uint32_t kind) -> std::unique_ptr<Task> {
+    switch (kind) {
+      case 0: return std::make_unique<Task1>(result);
+      case 1: return std::make_unique<Task2>(result);
+      case 2: return std::make_unique<Task3>(result);
+    }
+    __builtin_unreachable();
+  };
+  
   std::random_device rd;
   std::mt19937 gen{rd()};
-  std::uniform_int_distribution<uint32_t> dis{0, 299};
+  std::uniform_int_distribution<uint32_t> dis{0, 2};
 
-  std::vector<Task*> tasks(state.range(0));
-  for (auto& task : tasks) {
-    task = taskPool[dis(gen)].get();
+  const size_t workloadSize = static_cast<size_t>(state.range(0));
+  std::vector<std::unique_ptr<Task>> taskPool(workloadSize);
+  for (size_t i = 0; i < workloadSize; ++i) {
+    taskPool[i] = createTask(dis(gen));
   }
+
+  std::vector<Task*> tasks(workloadSize);
+  std::transform(taskPool.begin(), taskPool.end(), tasks.begin(),
+    [] (auto& task) { return task.get(); });
 
   Executor executor{tasks};
 

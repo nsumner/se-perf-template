@@ -17,9 +17,6 @@ using frob::Frob;
           ->Arg(16384);
 
 
-constexpr size_t maxElementCount = 16384;
-
-
 static void
 frobnosticate(benchmark::State& state) {
   std::random_device rd;
@@ -27,16 +24,16 @@ frobnosticate(benchmark::State& state) {
   std::uniform_int_distribution<uint32_t> dis{0, 299};
 
   std::vector<Frob> frobs;
-  frobs.reserve(state.range(0));
-  for (size_t i = 0, end = state.range(0); i < end; ++i) {
-    uint8_t a = dis(gen);
+  frobs.reserve(static_cast<size_t>(state.range(0)));
+  for (int64_t i = 0, end = state.range(0); i < end; ++i) {
+    uint8_t a  = static_cast<uint8_t>(dis(gen));
     uint32_t b = dis(gen);
-    uint8_t c = dis(gen);
-    uint16_t d = dis(gen);
-    double e = dis(gen);
-    double f = dis(gen);
-    double g = dis(gen);
-    double h = dis(gen);
+    uint8_t c  = static_cast<uint8_t>(dis(gen));
+    uint16_t d = static_cast<uint16_t>(dis(gen));
+    double e   = dis(gen);
+    double f   = dis(gen);
+    double g   = dis(gen);
+    double h   = dis(gen);
     frobs.emplace_back(a, b, c, d, e, f, g, h);
   }
 

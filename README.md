@@ -58,6 +58,10 @@ Building Java Tasks with Maven
 Running the Java Tests
 ==============================================
 
-1. Run the produced jar file.
+You can run all correctness tests automatically by simply running:
+
+        mvn test
+
+You can run all performance tests by running:
 
         java -jar target/ex02-benchmarks.jar

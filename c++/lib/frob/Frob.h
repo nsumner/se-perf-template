@@ -19,7 +19,6 @@ public:
     return getA()*getB()*first + getD()*getA()*getC() + getB()*getB()*getC() + second;
   }
 
-private:
   uint8_t  getA() const { return wizzle->getA(); }
   uint32_t getB() const { return wazzle->getB(); }
   uint8_t  getC() const { return wazzle->getC(); }
@@ -28,6 +27,8 @@ private:
   double   getF() const { return wizzle->getF(); }
   double   getG() const { return wazzle->getG(); }
   double   getH() const { return wazzle->getH(); }
+
+private:
 
   class Wizzle {
   public:

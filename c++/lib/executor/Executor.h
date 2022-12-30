@@ -10,11 +10,26 @@ namespace executor {
 
 class Task {
 public:
+  using TaskKindID = uintptr_t;
+
   virtual ~Task() = default;
 
   void doTask() { doTaskImpl(); }
+  TaskKindID getTaskKindID() const { return kind; }
+
+protected:
+  template<typename TaskKind>
+  Task(TaskKind*)
+    : kind{reinterpret_cast<uintptr_t>(&kindToken<TaskKind>)}
+      { }
+
 private:
   virtual void doTaskImpl() = 0;
+
+  template <typename TaskKind>
+  static inline uint8_t kindToken = 0;;
+  
+  uintptr_t kind;
 };
 
 
@@ -22,7 +37,8 @@ private:
 class Task1 final : public Task {
 public:
   Task1(uint32_t& toIncrement)
-    : toIncrement{toIncrement}
+    : Task{this},
+      toIncrement{toIncrement}
       { }
 
 private:
@@ -39,7 +55,8 @@ private:
 class Task2 final : public Task {
 public:
   Task2(uint32_t& toDecrement)
-    : toDecrement{toDecrement}
+    : Task{this},
+      toDecrement{toDecrement}
       { }
 
 private:
@@ -56,7 +73,8 @@ private:
 class Task3 final : public Task {
 public:
   Task3(uint32_t& toIncrement)
-    : toIncrement{toIncrement}
+    : Task{this},
+      toIncrement{toIncrement}
       { }
 
 private:

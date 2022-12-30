@@ -21,6 +21,14 @@ TEST_CASE("frobnicate") {
   auto result = frob.frobnicate(23, 29);
 
   CHECK(282 == result);
+  CHECK(a == frob.getA());
+  CHECK(b == frob.getB());
+  CHECK(c == frob.getC());
+  CHECK(d == frob.getD());
+  CHECK(e == frob.getE());
+  CHECK(f == frob.getF());
+  CHECK(g == frob.getG());
+  CHECK(h == frob.getH());
 }
 
 

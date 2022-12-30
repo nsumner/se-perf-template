@@ -7,7 +7,7 @@ using namespace tracker;
 
 
 static bool
-returnsTrue(Location loc) {
+returnsTrue(Location /*loc*/) {
   return true;
 }
 

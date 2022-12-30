@@ -38,12 +38,12 @@ static struct Initializer {
       location.y = dis(gen);
     }
     for (auto& name : randomNames) {
-      const char shortName[2] = { static_cast<char>(dis(gen)) };
-      name = shortName;
+      const char shortName = static_cast<char>(dis(gen));
+      name = std::string(&shortName, 1);
     }
     for (auto& plan : randomPlans) {
       for (auto& element : plan.secretPlan) {
-        element = dis(gen);
+        element = static_cast<uint8_t>(dis(gen));
       }
     }
   }
@@ -51,15 +51,18 @@ static struct Initializer {
 
 
 static void
-fillTracker(EntityTracker& tracker, size_t count) {
-  for (size_t i = 0; i < count; ++i) {
-    tracker.addEntity(randomLocations[i], randomNames[i], randomPlans[i]);
+fillTracker(EntityTracker& tracker, int64_t count) {
+  for (int64_t i = 0; i < count; ++i) {
+    const size_t asSize = static_cast<size_t>(i);
+    tracker.addEntity(randomLocations[asSize],
+                      randomNames[asSize],
+                      randomPlans[asSize]);
   }
 }
 
 
 static bool
-returnsTrue(Location location) {
+returnsTrue(Location /*location*/) {
   return true;
 }
 

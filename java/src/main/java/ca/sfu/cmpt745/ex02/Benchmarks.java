@@ -44,7 +44,7 @@ public class Benchmarks {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public int testMethod() {
+    public int measureRunnerPerformance() {
       runner.run();
       return store[0];
     }

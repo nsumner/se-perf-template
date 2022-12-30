@@ -25,7 +25,7 @@ class Subtract1 implements Operation {
 
   @Override
   public void run() {
-    target[0] += 1;
+    target[0] -= 1;
   }
   
   int[] target;
