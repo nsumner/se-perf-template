@@ -27,7 +27,7 @@ private:
   virtual void doTaskImpl() = 0;
 
   template <typename TaskKind>
-  static inline uint8_t kindToken = 0;;
+  static inline uint8_t kindToken = 0;
   
   uintptr_t kind;
 };
