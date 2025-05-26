@@ -43,6 +43,13 @@
         <version>3.10.1</version>
         <configuration>
           <release>${javac.target}</release>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.openjdk.jmh</groupId>
+              <artifactId>jmh-generator-annprocess</artifactId>
+              <version>${jmh.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
 

@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <bit>
 #include <cstdint>
 #include <vector>
 
@@ -20,7 +21,7 @@ public:
 protected:
   template<typename TaskKind>
   Task(TaskKind*)
-    : kind{reinterpret_cast<uintptr_t>(&kindToken<TaskKind>)}
+    : kind{std::bit_cast<uintptr_t>(&kindToken<TaskKind>)}
       { }
 
 private:
@@ -78,8 +79,8 @@ public:
       { }
 
 private:
-  virtual void
-  doTaskImpl() {
+  void
+  doTaskImpl() override {
     toIncrement += 2;
   }
 
